@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-skyeapp" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>EappPlugin</name>
+    <js-module name="EappPlugin" src="www/EappPlugin.js">
+        <clobbers target="sky.plugin" />
+        <clobbers target="cordova.plugins.EappPlugin" />
+    </js-module>
+
+    <platform name="android">
+        <lib-file src="src/android/libs/zxinglibrary-release.aar"/>
+        <framework src="src/android/eapp.gradle" custom="true" type="gradleReference" />
+        <source-file src="src/android/EappPlugin.java" target-dir="src/com/skytech/eapp"/>
+        <source-file src="src/android/NewActivity.java" target-dir="src/com/skytech/eapp"/>
+        <source-file src="src/android/SharedPreferencesHelper.java" target-dir="src/com/skytech/eapp"/>
+        <source-file src="src/android/anim/zoom_enter_left.xml" target-dir="res/anim" />
+        <source-file src="src/android/anim/zoom_enter_top.xml" target-dir="res/anim" />
+        <source-file src="src/android/anim/zoom_out_left.xml" target-dir="res/anim" />
+        <source-file src="src/android/anim/zoom_out_top.xml" target-dir="res/anim" />
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="EappPlugin">
+                <param name="android-package" value="com.skytech.eapp.EappPlugin"/>
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                    android:name="com.skytech.eapp.NewActivity"
+                    android:launchMode="singleTop"
+                    android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
+                    android:screenOrientation="portrait"
+                    android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
+                    android:windowSoftInputMode="adjustResize"/>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+        </config-file>
+    </platform>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="EappPlugin">
+                <param name="ios-package" value="webFramePlugin"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/newCordovaFrameViewController.h" />
+        <source-file src="src/ios/newCordovaFrameViewController.m" />
+        <header-file src="src/ios/webFramePlugin.h" />
+        <source-file src="src/ios/webFramePlugin.m" />
+		<header-file src="src/ios/PDCameraScanView.h" />
+		<source-file src="src/ios/PDCameraScanView.m" />
+		<header-file src="src/ios/PDCameraScanViewController.h" />
+		<source-file src="src/ios/PDCameraScanViewController.m" />
+		<resource-file src="src/ios/sacnImage@2x.png"/>
+		<resource-file src="src/ios/sacnlightOff@2x.png"/>
+		<resource-file src="src/ios/scanback@2x.png"/>
+		<resource-file src="src/ios/scanImageClose@2x.png"/>
+		<resource-file src="src/ios/scanImageSure@2x.png"/>
+		<resource-file src="src/ios/scanlightOn@2x.png"/>
+    </platform>
+</plugin>
